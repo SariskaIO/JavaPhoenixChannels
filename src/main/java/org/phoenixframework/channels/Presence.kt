@@ -27,7 +27,8 @@ typealias OnLeave = (key: String, current: PresenceMap, left: PresenceMap) -> Un
 /** Closure signature for OnSync callbacks */
 typealias OnSync = () -> Unit
 
-class Presence(channel: Channel, opts: Options = Options.defaults) {
+class Presence(channel: Channel) {
+
 
     //------------------------------------------------------------------------------
     // Enums and Data classes
@@ -72,6 +73,8 @@ class Presence(channel: Channel, opts: Options = Options.defaults) {
     /** Caller to callback hooks */
     internal val caller: Caller
 
+    val opts = Options.defaults
+
     /** The state of the Presence */
     var state: PresenceState
         internal set
@@ -97,6 +100,7 @@ class Presence(channel: Channel, opts: Options = Options.defaults) {
         this.channel = channel
         this.joinRef = null
         this.caller = Caller()
+
 
         val stateEvent = opts.events[Events.STATE]
         val diffEvent = opts.events[Events.DIFF]
